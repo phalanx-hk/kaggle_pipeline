@@ -52,6 +52,7 @@
     - [Semantic Flow](#semantic_flow) (ECCV'20)
     - [Hierarchical Multi-Scale Attention](#hierachical_multi_scale_attention) (arxiv'20)
     - [Rethinking Pre-training and Self-training](#rethinking_pre_training) (arxiv'20)
+    - [Improving Semantic Segmentation via Self-Training](#self_training) (arxiv'20)
     
 - [real time semantic segmentation model](#real_time)
   - [ESPNet](#espnet) (ECCV'18)  
@@ -529,6 +530,17 @@
 <img src='./imgs/rethinking_pre_training_1.jpg'>
 <img src='./imgs/rethinking_pre_training_2.jpg'>
 
+<a name="self_training"></a>
+
+### [Improving Semantic Segmentation via Self-Training](https://arxiv.org/abs/2004.14960) (arxiv'20)
+#### <strong>overview</strong>
+***
+#### <strong>issue</strong>
+***
+<img src='./imgs/self_training_1.jpg'>
+<img src='./imgs/self_training_2.jpg' width=400>
+
+
 <a name="real_time"></a>
 
 # real time semantic segmentation
@@ -581,6 +593,8 @@
 ### Combo Loss
 ### lovasz hinge
 
+<a name="#competition"></a>
+
 # Competition overview / Top solution
 ##  [Understanding Clouds from Satellite Images](https://www.kaggle.com/c/understanding_cloud_organization)
 ### Overview
@@ -615,4 +629,41 @@
 
 #### 3rd place
 
+<a name="how_to_win_segmentation_competition"></a>
 
+# How to win segmentation competition
+## modeling
+- use basic model architecture at first. I use,
+  - unet
+  - fpn
+  - fastfcn
+  - SFNet
+- next, try another model architecture based on your EDA and prediction result. These are good for me in past competitions.
+  - se/scse module
+  - hypercolumns
+  - hrnet
+  - Hierarchical Multi-Scale Attention
+  - context prior
+  - SegFix
+  - PointRend
+  - cascade psp
+  - FastFCN
+  - pyramid attention network
+  - EMANet
+- use lightweight backbone model(e.g., resnet18, efficientnetb0), then replace heavyweight model(e.g., resnet101, efficientnetb7)
+- try multi task learning, segmentation and classification. For weighting each task, use eaual weight or [DWA](https://arxiv.org/abs/1803.10704)
+- train multi-task model(segmentation and classification). In many segmentation competitions, evaluation metric is meanIoU or Dice metric. These metrics are sensitive to FP errors. To address this issue, training a segmentation model with classification head is very helpful.
+- train two model, multi-task model and segmentation model with positive label, then replace positive pred of multi-task model output with segmentation model output. Training segmentation model for each target class is effective.
+
+## training
+- use Cyclic LR with SGD or Adam optimizer
+- set low lr for encoder and high lr for decoder
+- use DDP and Synchronized batch normalization
+- use accumulate gradients
+- train with hard augmentation, then apply soft augmentation to last some epoch
+- use dice loss or lovasz loss . They are stable and more likely to attain good results without heuristics. if you have enough time for hyperparameter tuning, try weighted bce, focal loss and other loss functions. Combining some loss functions is effective.
+- use pseudo-label. Even if the amount of training data and evaluation data is the same, it iseffective.
+
+## postprocess
+- use TTA, but don't change class distribution.
+- use classification probability of cls head to decrease FP errors.
