@@ -5,7 +5,7 @@
 This is a template for a Kaggle pipeline for GPU instance. The following features are included for accelerating the development:
 
 - <b>Container</b>: Docker is used to create a container for the pipeline. To optimize training on NVIDIA GPUs, it is based on the [PyTorch NGC Container]().
-- <b>Package management</b>: [rye](https://github.com/astral-sh/rye) is used to manage the packages. We use [uv](https://github.com/astral-sh/uv) as backend for rye.
+- <b>package installer</b>: [uv](https://github.com/astral-sh/uv) is used to speedup package installation. Now uv can't install the package without virtualenv, so I set `VIRTUAL_ENV` environment valirbale to `/usr`.
 - <b>code lint/format</b>: [ruff](https://github.com/astral-sh/ruff) is used to lint and format the code.
 - <b>type check</b>: [mypy](https://github.com/python/mypy) is used to check the type of the code.
 - <b>test</b>: [pytest]() is used to test the code.
