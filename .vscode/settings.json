@@ -1,0 +1,65 @@
+{
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.tabSize": 4,
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    "editor.insertSpaces": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit"
+    }
+  },
+  "python.defaultInterpreterPath": "/usr/bin/python",
+  "ruff.path": [
+    "/usr/local/bin/ruff"
+  ],
+  "mypy.dmypyExecutable": "/usr/local/bin/dmypy",
+  "python.testing.unittestEnabled": true,
+  "python.testing.pytestEnabled": true,
+  "python.analysis.inlayHints.callArgumentNames": "all",
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "editor.inlayHints.enabled": "offUnlessPressed",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/src"
+  ],
+  "autoDocstring.docstringFormat": "google",
+  "editor.renderControlCharacters": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 4,
+  "editor.indentSize": 4,
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.tabCompletion": "on",
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggestSelection": "first",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.minimap.enabled": false,
+  "editor.detectIndentation": true,
+  "files.autoGuessEncoding": true,
+  "github.copilot.enable": {
+    "*": true
+  },
+  "workbench.iconTheme": "vscode-icons",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/dataset/**/*.{png,zip,jpg,npz,txt}": true,
+    "**/datasets/**/*.{png,zip,jpg,npz,txt}": true,
+    "**/data/**/*.{png,zip,jpg,npz,txt}": true,
+    "**/.venv/**": true
+  },
+  "workbench.colorCustomizations": {
+    "errorLens.errorForeground": "#ff0000",
+    "errorLens.warningForeground": "#e5f102",
+    "errorLens.hintForeground": "#2faf64",
+    "errorLens.infoForeground": "#00b7e4"
+  },
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "python.analysis.autoImportCompletions": true
+}
