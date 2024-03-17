@@ -24,3 +24,11 @@ compose-up:
 	export UID=$(id -u)
 	export GID=$(id -g)
 	docker compose up -d
+
+# compose down
+compose-down:
+	docker compose down
+
+# lint Dockerfile by hadolint
+hadolint:
+	hadolint Dockerfile

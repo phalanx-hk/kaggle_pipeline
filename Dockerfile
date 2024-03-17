@@ -21,13 +21,26 @@ RUN \
     --mount=type=cache,target=/var/lib/apt \
     rm /etc/apt/apt.conf.d/docker-clean \
     && sed -i s@archive.ubuntu.com@${apt_get_server}@g /etc/apt/sources.list \
+    && curl -sL https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | gpg --dearmor -o /etc/apt/keyrings/gierens.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | tee /etc/apt/sources.list.d/gierens.list \
+    && chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
+    bat \
+    fd-find \
+    ripgrep \
+    eza \
+    shellcheck \
     tmux \
     zsh \
     sudo \
+    && ln -s "$(which batcat)" /usr/local/bin/bat \
+    && ln -s "$(which fdfind)" /usr/local/bin/fd \
     # just command runner
     && curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin \
+    # hadolint
+    && curl -fSL "https://github.com/hadolint/hadolint/releases/download/$(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest | jq -r '.tag_name')/hadolint-Linux-x86_64" -o /usr/local/bin/hadolint \
+    && chmod +x /usr/local/bin/hadolint \
     # uv
     && pip install --no-cache-dir uv \
     # add user

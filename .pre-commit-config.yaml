@@ -12,8 +12,6 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
       - id: detect-private-key
-      - id: no-commit-to-branch
-        args: [--branch, main]
 
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: "1.5.3"
@@ -44,6 +42,7 @@ repos:
           - "ans,hist,laf"
           - --skip
           - "*.ipynb"
+
   - repo: https://github.com/hadolint/hadolint
     rev: v2.12.0
     hooks:

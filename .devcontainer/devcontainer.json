@@ -4,6 +4,7 @@
     ],
     "service": "kaggle",
     "workspaceFolder": "/workspace",
+    "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
     "customizations": {
       "vscode": {
         "extensions": [

@@ -4,16 +4,17 @@
 
 This is a template for a Kaggle pipeline for GPU instance. The following features are included for accelerating the development:
 
-- <b>Container</b>: Docker is used to create a container for the pipeline. To optimize training on NVIDIA GPUs, it is based on the [PyTorch NGC Container]().
-- <b>package installer</b>: [uv](https://github.com/astral-sh/uv) is used to speedup package installation. Now uv can't install the package without virtualenv, so I set `VIRTUAL_ENV` environment valirbale to `/usr`.
-- <b>code lint/format</b>: [ruff](https://github.com/astral-sh/ruff) is used to lint and format the code.
-- <b>type check</b>: [mypy](https://github.com/python/mypy) is used to check the type of the code.
-- <b>test</b>: [pytest]() is used to test the code.
+- :package: <b>Container</b> : Docker is used to create a container for the pipeline. To optimize training on NVIDIA GPUs, it is based on the [PyTorch NGC Container]().
+- :package: <b>devcontainer</b> : By using devcontainers, it is possible to ensure reproducibility and develop without polluting the local environment.
+- 📥 <b>Package installer</b> : [uv](https://github.com/astral-sh/uv) is used to speedup package installation. Now uv can't install the package without virtualenv, so I set `VIRTUAL_ENV` environment valirbale to `/usr`.
+- :chart_with_upwards_trend: <b>ML Experiment manager</b>: [wandb](https://github.com/wandb/wandb) is used, but anything(e.g., MLflow and Comet) would be fine.
+- :white_check_mark: <b>Code lint/format</b> : [ruff](https://github.com/astral-sh/ruff) is used for both lint and format.
+- :white_check_mark: <b>Type check</b> : [mypy](https://github.com/python/mypy)
+- :pencil: <b>Test</b> : [pytest]()
 
 ## Prerequirements
 
 - Docker >= 20.10.13 (for using composeV2)
-- pre-commit
 - [NVIDIA GPU Driver](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/)
 - [NVIDIA Container Toolkit](https://github.com/NVIDIA/nvidia-container-toolkit)
 
@@ -34,3 +35,10 @@ just --list
 ```bash
 just devcontainer-up
 ```
+
+### Attach container to the vscode
+
+Attach the container to the vscode in Docker extension.
+`Docker extension` -> `CONTAINERS` -> `kaggle_pipeline.kaggle_pipeline-kaggle` -> `Attach Visual Studio Code`
+
+<img src="./imgs/attach_container_to_the_vscode.jpg" width="70%" />
