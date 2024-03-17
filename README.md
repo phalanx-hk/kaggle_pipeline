@@ -1,4 +1,4 @@
-# kaggle_pipeline_template
+# kaggle_pipeline
 
 ## Overview
 
