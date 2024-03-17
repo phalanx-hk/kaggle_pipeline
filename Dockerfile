@@ -28,6 +28,9 @@ RUN \
     sudo \
     # just command runner
     && curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin \
+    # hadolint
+    && curl -fSL "https://github.com/hadolint/hadolint/releases/download/$(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest | jq -r '.tag_name')/hadolint-Linux-x86_64" -o /usr/local/bin/hadolint \
+    && chmod +x /usr/local/bin/hadolint \
     # uv
     && pip install --no-cache-dir uv \
     # add user
