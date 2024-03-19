@@ -1,0 +1,117 @@
+name: ci
+
+on:
+  push:
+    branches: master
+    paths-ignore:
+      - "README.md"
+      - "imgs/*"
+      - "docs/*"
+      - "renovate.json"
+  pull_request:
+    branches: main
+    paths-ignore:
+      - "README.md"
+      - "imgs/*"
+      - ".github/*"
+      - "docs/*"
+      - "renovate.json"
+  workflow_dispatch:
+env:
+  UID: 1000
+  GID: 1000
+
+jobs:
+  changes:
+    runs-on: ubuntu-22.04
+    permissions:
+      pull-requests: read
+    outputs:
+      hadolint: ${{ steps.filter.outputs.hadolint }}
+      actionlint: ${{ steps.filter.outputs.actionlint }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Filter changes
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            hadolint:
+              - "Dockerfile"
+              - ".hadolint.yaml"
+            actionlint:
+              - ".github/workflows/*.yml"
+
+  devcontainer:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and run dev container test
+        uses: devcontainers/ci@v0.3
+
+  test:
+    needs: devcontainer
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and run dev container test
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: just test
+
+  lint:
+    needs: devcontainer
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and run dev container test
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: just lint
+
+  type-check:
+    needs: devcontainer
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and run dev container test
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: just type-check
+
+  hadolint:
+    runs-on: ubuntu-22.04
+    needs: changes
+    if: ${{ needs.changes.outputs.hadolint == 'true' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+  actionlint:
+    needs: changes
+    if: ${{ needs.changes.outputs.actionlint == 'true' }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run actionlint
+        shell: bash
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          ./actionlint -color
