@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and run dev container test
-        uses: devcontainers/ci@v0.3
+        uses: devcontainers/ci@v0.3.1900000348
 
   test:
     needs: devcontainer
