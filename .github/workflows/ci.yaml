@@ -43,7 +43,7 @@ jobs:
               - "Dockerfile"
               - ".hadolint.yaml"
             actionlint:
-              - ".github/workflows/*.yml"
+              - ".github/workflows/*"
 
   devcontainer:
     runs-on: ubuntu-22.04
