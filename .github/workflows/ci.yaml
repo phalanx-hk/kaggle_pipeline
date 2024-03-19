@@ -16,6 +16,7 @@ on:
       - ".github/*"
       - "docs/*"
       - "renovate.json"
+    types: [opened, synchronize]
   workflow_dispatch:
 env:
   UID: 1000
