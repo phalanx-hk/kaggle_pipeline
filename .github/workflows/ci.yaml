@@ -9,7 +9,7 @@ on:
       - "docs/*"
       - "renovate.json"
   pull_request:
-    branches: main
+    branches: master
     paths-ignore:
       - "README.md"
       - "imgs/*"
