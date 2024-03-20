@@ -39,7 +39,7 @@ jobs:
               - "Dockerfile"
               - ".hadolint.yaml"
             actionlint:
-              - ".github/*"
+              - ".github/**"
 
   hadolint:
     runs-on: ubuntu-22.04
