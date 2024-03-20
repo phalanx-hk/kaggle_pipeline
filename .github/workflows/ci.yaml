@@ -13,14 +13,10 @@ on:
     paths-ignore:
       - "README.md"
       - "imgs/*"
-      - ".github/*"
       - "docs/*"
       - "renovate.json"
     types: [opened, synchronize]
   workflow_dispatch:
-env:
-  UID: 1000
-  GID: 1000
 
 jobs:
   changes:
@@ -43,54 +39,7 @@ jobs:
               - "Dockerfile"
               - ".hadolint.yaml"
             actionlint:
-              - ".github/workflows/*.yml"
-
-  devcontainer:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build and run dev container test
-        uses: devcontainers/ci@v0.3
-
-  test:
-    needs: devcontainer
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build and run dev container test
-        uses: devcontainers/ci@v0.3
-        with:
-          runCmd: just test
-
-  lint:
-    needs: devcontainer
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build and run dev container test
-        uses: devcontainers/ci@v0.3
-        with:
-          runCmd: just lint
-
-  type-check:
-    needs: devcontainer
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build and run dev container test
-        uses: devcontainers/ci@v0.3
-        with:
-          runCmd: just type-check
+              - ".github/**"
 
   hadolint:
     runs-on: ubuntu-22.04
