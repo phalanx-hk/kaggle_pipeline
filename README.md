@@ -6,7 +6,11 @@ This is a template for a Kaggle pipeline for GPU instance. The following feature
 
 - :package: <b>Container</b> : Docker is used to create a container for the pipeline. To optimize training on NVIDIA GPUs, it is based on the [PyTorch NGC Container]().
 - :package: <b>devcontainer</b> : By using devcontainers, it is possible to ensure reproducibility and develop without polluting the local environment.
-- 📥 <b>Package installer</b> : [uv](https://github.com/astral-sh/uv) is used to speedup package installation. Now uv can't install the package without virtualenv, so I set `VIRTUAL_ENV` environment valirbale to `/usr`.
+ - 📥 <b>Package installer</b> : pip
+ > [!CAUTION]
+ > I have been using uv, but due to [this problem](https://github.com/astral-sh/uv/issues/2560), the dependency cannot be resolved properly, so I will switch to using pip.
+ > Developer of uv plan to fix this issue, So I will switch to using uv in the future.
+
 - :chart_with_upwards_trend: <b>ML Experiment manager</b>: [wandb](https://github.com/wandb/wandb) is used, but anything(e.g., MLflow and Comet) would be fine.
 - :white_check_mark: <b>Code lint/format</b> : [ruff](https://github.com/astral-sh/ruff) is used for both lint and format.
 - :white_check_mark: <b>Type check</b> : [mypy](https://github.com/python/mypy)

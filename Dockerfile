@@ -41,8 +41,6 @@ RUN \
     # hadolint
     && curl -fSL "https://github.com/hadolint/hadolint/releases/download/$(curl -s https://api.github.com/repos/hadolint/hadolint/releases/latest | jq -r '.tag_name')/hadolint-Linux-x86_64" -o /usr/local/bin/hadolint \
     && chmod +x /usr/local/bin/hadolint \
-    # uv
-    && pip install --no-cache-dir uv \
     # add user
     && groupadd --gid ${GID} ${USERNAME} \
     && useradd -l --uid ${UID} --gid ${GID} -m ${USERNAME} \
@@ -50,7 +48,8 @@ RUN \
 
 RUN --mount=type=bind,source=requirements.txt,target=requirements.txt \
     --mount=type=bind,source=requirements-dev.txt,target=requirements-dev.txt \
-    uv pip install -r requirements.txt \
-    && uv pip install -r requirements-dev.txt
+    pip install --no-cache-dir --upgrade pip \
+    pip install --no-cache-dir -r requirements.txt \
+    && pip install --no-cache-dir -r requirements-dev.txt
 
 USER ${USERNAME}
