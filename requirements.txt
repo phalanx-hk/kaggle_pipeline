@@ -13,3 +13,4 @@ lightgbm>=4.3.0
 catboost>=1.2.3
 transformers>=4.38.2
 optuna>=3.5.0
+timm>=0.9.16
