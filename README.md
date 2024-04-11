@@ -43,3 +43,7 @@ Attach the container to the vscode in Docker extension.
 `Docker extension` -> `CONTAINERS` -> `kaggle_pipeline.kaggle_pipeline-kaggle` -> `Attach Visual Studio Code`
 
 <img src="./imgs/attach_container_to_the_vscode.jpg" width="70%" />
+
+## TODO
+- [ ] apply renovate bot
+- [ ] CI
