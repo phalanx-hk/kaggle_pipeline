@@ -1,0 +1,37 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    ":timezone(Asia/Tokyo)",
+    ":semanticCommitTypeAll(ci)",
+    ":label(deps)",
+  ],
+  ignorePaths: ["competitions/**"],
+  schedule: ["after 17:00 before 22:00"],
+  vulnerabilityAlerts: {
+    labels: ["security"],
+  },
+  prHourlyLimit: 0,
+  prConcurrentLimit: 5,
+  recreateWhen: "never",
+  major: {
+    stabilityDays: 4,
+  },
+  minor: {
+    stabilityDays: 2,
+  },
+  patch: {
+    stabilityDays: 1,
+  },
+  packageRules: [
+    {
+      groupName: "workflow deps",
+      groupSlug: "github-actions",
+      matchManagers: ["github-actions"],
+    },
+    {
+      groupName: "all patch deps",
+      groupSlug: "all-patch",
+      matchUpdateTypes: ["patch", "pin", "digest"],
+    },
+  ],
+}

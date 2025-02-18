@@ -1,0 +1,43 @@
+[project]
+name = "template"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "lightgbm>=4.3",
+  "loguru>=0.7.2",
+  "numba>=0.59",
+  "optuna>=3.5",
+  "polars>=0.20.15",
+  "pydantic==2.6.3",
+  "pydantic-settings>=2.2.1",
+  "rich>=10.12",
+  "tqdm>=4.64.1",
+  "typer>=0.9",
+  "wandb>=0.16.4",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+dev_tools = { path = "../../shared/dev_tools", editable = true }
+
+[dependency-groups]
+dev = ["dev_tools"]
+
+
+[tool.poe.tasks]
+fmt = "ruff format ${PWD}"
+lint = "ruff check --fix ${PWD}"
+check = "mypy ${PWD}"
+test = "pytest ${PWD}"
+all = [{ ref = "fmt" }, { ref = "lint" }, { ref = "check" }, { ref = "test" }]
+
+"ci:fmt" = "ruff format --check ${PWD}"
+"ci:lint" = "ruff check ${PWD}"
