@@ -11,7 +11,7 @@ classifiers = [
 dependencies = [
   "kaggle>=1.6.6",
   "mypy>=1.14.1",
-  "notebook==7.0.8",
+  "notebook==7.3.2",
   "poethepoet>=0.32",
   "pre-commit>=4.1",
   "pytest>=8.3.4",
