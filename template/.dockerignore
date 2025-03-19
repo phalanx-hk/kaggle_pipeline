@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+.github
+
+# Docker
+compose.yml
+
+# Distribution / packaging
+env/
+dist/
+
+# Virtual environment
+.env/
+.venv/
+
+# user settings
+data/
+docs/
+imgs/
+src/
+tests/
+tools/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+ruff.toml
+pytest.ini
+mypy.ini
