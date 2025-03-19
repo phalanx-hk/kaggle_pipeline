@@ -1,0 +1,10 @@
+__pycache__
+.coverage
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.ipynb_checkpoints
+.venv
+*.egg-info
+
+# user setting
