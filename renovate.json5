@@ -33,5 +33,18 @@
       groupSlug: "all-patch",
       matchUpdateTypes: ["patch", "pin", "digest"],
     },
+    {
+      description: "Enable updates for pyproject.toml in root and template directory",
+      matchFileNames: ["pyproject.toml"],
+      matchPaths: ["template/**", "./pyproject.toml"],
+      enabled: true,
+    },
+    {
+      description: "Disable updates for pyproject.toml in other directories",
+      matchFileNames: ["pyproject.toml"],
+      matchPaths: ["**/pyproject.toml"],
+      excludePaths: ["template/**", "./pyproject.toml"],
+      enabled: false,
+    },
   ],
 }
