@@ -5,7 +5,6 @@
     ":semanticCommitTypeAll(ci)",
     ":label(deps)",
   ],
-  ignorePaths: ["competitions/**"],
   schedule: ["after 17:00 before 22:00"],
   vulnerabilityAlerts: {
     labels: ["security"],
@@ -36,14 +35,14 @@
     {
       description: "Enable updates for pyproject.toml in root and template directory",
       matchFileNames: ["pyproject.toml"],
-      matchPaths: ["template/**", "./pyproject.toml"],
+      matchPaths: ["template/**", "./shared/dev/**"],
       enabled: true,
     },
     {
       description: "Disable updates for pyproject.toml in other directories",
       matchFileNames: ["pyproject.toml"],
-      matchPaths: ["**/pyproject.toml"],
-      excludePaths: ["template/**", "./pyproject.toml"],
+      matchPaths: ["**/pyproject.toml", "./pyproject.toml"],
+      excludePaths: ["template/**", "./shared/dev/**"],
       enabled: false,
     },
   ],
