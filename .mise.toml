@@ -1,6 +1,6 @@
 [tools]
 python = ["3.12"]
-uv = "0.6.2"
+uv = "0.5.7"
 hadolint = "2.12.0"
 pre-commit = "4.2.0"
 
@@ -41,6 +41,7 @@ description = "Start up all the services in detached mode"
 run = """
 export UID=$(id -u)
 export GID=$(id -g)
+export PROJECT={{arg(name='project', var=true)}}
 docker compose up -d
 """
 
@@ -60,5 +61,15 @@ mkdir -p ${PROJECT_NAME}
 cp -r template/* ${PROJECT_NAME}/ 2>/dev/null || true
 find template -name ".*" -type f -exec cp {} ${PROJECT_NAME}/ \\; 2>/dev/null || true
 sed -i 's/name = "template"/name = "'${PROJECT_NAME}'"/g' ${PROJECT_NAME}/pyproject.toml
-echo "Project ${PROJECT_NAME} created from template"
+
+# Add the new project to the members in root pyproject.toml
+if grep -q "members = \\[" pyproject.toml; then
+  # Check if the project is already in members
+  if ! grep -q "members = \\[.*\"${PROJECT_NAME}\".*\\]" pyproject.toml; then
+    # Add the project to members
+    sed -i '/members = \\[/ s/\\]/, "'${PROJECT_NAME}'"]/' pyproject.toml
+  fi
+fi
+
+echo "Project ${PROJECT_NAME} created from template and added to workspace members"
 """

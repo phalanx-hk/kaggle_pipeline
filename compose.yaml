@@ -5,6 +5,7 @@ services:
       args:
         - UID=${UID}
         - GID=${GID}
+        - PROJECT=${PROJECT}
     restart: always
     tty: true
     volumes:
