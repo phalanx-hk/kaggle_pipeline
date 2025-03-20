@@ -1,4 +1,64 @@
 [tools]
+python = ["3.12"]
 uv = "0.6.2"
-just = "1.40.0"
 hadolint = "2.12.0"
+pre-commit = "4.2.0"
+
+[tasks.setup]
+description = "Setup the project"
+run = "mise i && pre-commit install"
+
+[tasks.format]
+description = "Format python code by ruff"
+run = "uv run ruff format ${PWD}"
+
+[tasks.ci-fmt]
+description = "Check format by ruff"
+run = "uv run ruff format --check ${PWD}"
+
+[tasks.lint]
+description = "Lint python code by ruff with auto-fix"
+run = "uv run ruff check --fix ${PWD}"
+
+[tasks.ci-lint]
+description = "Check lint by ruff"
+run = "uv run ruff check ${PWD}"
+
+[tasks.type-check]
+description = "Check types by mypy"
+run = "uv run mypy ${PWD}"
+
+[tasks.test]
+description = "Run pytest in tests directory"
+run = "uv run pytest"
+
+[tasks.all]
+description = "Run format, lint, type-check, test"
+depends = ["format", "lint", "type-check", "test"]
+
+[tasks.compose-up]
+description = "Start up all the services in detached mode"
+run = """
+export UID=$(id -u)
+export GID=$(id -g)
+docker compose up -d
+"""
+
+[tasks.compose-down]
+description = "Compose down"
+run = "docker compose down"
+
+[tasks.hadolint]
+description = "Lint Dockerfile by hadolint"
+run = "hadolint Dockerfile"
+
+[tasks.new]
+description = "Create a new project from template"
+run = """
+PROJECT_NAME={{arg(name='project_name', var=true)}}
+mkdir -p ${PROJECT_NAME}
+cp -r template/* ${PROJECT_NAME}/ 2>/dev/null || true
+find template -name ".*" -type f -exec cp {} ${PROJECT_NAME}/ \\; 2>/dev/null || true
+sed -i 's/name = "template"/name = "'${PROJECT_NAME}'"/g' ${PROJECT_NAME}/pyproject.toml
+echo "Project ${PROJECT_NAME} created from template"
+"""
