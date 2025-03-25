@@ -1,0 +1,39 @@
+# Git
+.git
+.gitignore
+.github
+.pre-commit-config.yaml
+
+# Docker
+compose.yml
+.devcontainer/
+.hadolint.yaml
+
+# Distribution / packaging
+env/
+dist/
+
+# Virtual environment
+.env/
+.venv/
+
+# cline
+.clineignore
+.clinerules
+
+# python
+.venv/
+.python-version
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+ruff.toml
+pytest.ini
+mypy.ini
+
+# vscode
+.vscode/
+
+# user settings
+!projects/*/uv.lock
+!projects/*/pyproject.toml

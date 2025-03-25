@@ -5,7 +5,6 @@
     ":semanticCommitTypeAll(ci)",
     ":label(deps)",
   ],
-  ignorePaths: ["competitions/**"],
   schedule: ["after 17:00 before 22:00"],
   vulnerabilityAlerts: {
     labels: ["security"],
@@ -32,6 +31,12 @@
       groupName: "all patch deps",
       groupSlug: "all-patch",
       matchUpdateTypes: ["patch", "pin", "digest"],
+    },
+    {
+      description: "Disable updates in project directories, not template.",
+      matchPaths: ["projects/**/*"],
+      excludePaths: ["projects/template/*"],
+      enabled: false,
     },
   ],
 }
