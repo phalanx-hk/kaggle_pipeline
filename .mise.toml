@@ -1,2 +1,81 @@
 [tools]
+python = ["3.12"]
 uv = "0.6.9"
+hadolint = "2.12.0"
+pre-commit = "4.2.0"
+
+############################################
+# Tasks for python project
+############################################
+
+[tasks.format]
+description = "Format python code by ruff"
+run = "uv run ruff format ${PWD}"
+
+[tasks.ci-fmt]
+description = "Check format by ruff"
+run = "uv run ruff format --check ${PWD}"
+
+[tasks.lint]
+description = "Lint python code by ruff with auto-fix"
+run = "uv run ruff check --fix ${PWD}"
+
+[tasks.ci-lint]
+description = "Check lint by ruff"
+run = "uv run ruff check ${PWD}"
+
+[tasks.type-check]
+description = "Check types by mypy"
+run = "uv run mypy ${PWD}"
+
+[tasks.test]
+description = "Run pytest in tests directory"
+run = "uv run pytest"
+
+[tasks.all]
+description = "Run format, lint, type-check, test"
+depends = ["format", "lint", "type-check", "test"]
+
+
+############################################
+# Tasks for docker project
+############################################
+[tasks.hadolint]
+description = "Lint Dockerfile by hadolint"
+run = "hadolint Dockerfile"
+
+[tasks.compose-up]
+description = "Start up all the services in detached mode"
+run = """
+export UID=$(id -u)
+export GID=$(id -g)
+export PROJECT={{arg(name='project', var=true)}}
+docker compose up -d --build
+"""
+
+[tasks.compose-down]
+description = "Compose down"
+run = "docker compose down"
+
+
+############################################
+# Tasks for workspace
+############################################
+
+[tasks.new]
+description = "Create a new project from template"
+run = """
+PROJECT_NAME={{arg(name='project_name', var=true)}}
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+PROJECT_DIR=${REPO_ROOT}/projects/${PROJECT_NAME}
+TEMPLATE_DIR=${REPO_ROOT}/projects/template
+
+mkdir -p ${PROJECT_DIR}
+cp -r ${TEMPLATE_DIR}/* ${PROJECT_DIR}/ 2>/dev/null || true
+find ${TEMPLATE_DIR} -name ".*" -type f -exec cp {} ${PROJECT_DIR}/ \\; 2>/dev/null || true
+sed -i 's/name = "template"/name = "'${PROJECT_NAME}'"/g' ${PROJECT_DIR}/pyproject.toml
+rm projects/${PROJECT_NAME}/**/.gitkeep
+rm projects/${PROJECT_NAME}/.gitkeep
+echo "Project ${PROJECT_NAME} created from template and added to workspace members"
+"""

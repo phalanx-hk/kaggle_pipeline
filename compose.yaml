@@ -5,18 +5,22 @@ services:
       args:
         - UID=${UID}
         - GID=${GID}
+        - PROJECT=${PROJECT}
     restart: always
     tty: true
     volumes:
-      - type: bind
-        source: .
-        target: /workspace
-        read_only: false
-        consistency: cached
+      - .:/workspace
+      - /workspace/projects/${PROJECT}/.venv
     ipc: host
     ulimits:
       memlock: -1
       stack: -1
     ports:
       - "8888:8888"
-    command: jupyter lab --ip=0.0.0.0 --port 8888 --allow-root --NotebookApp.notebook_dir=/workspace --no-browser --LabApp.token=''
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

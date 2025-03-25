@@ -5,7 +5,6 @@
     ":semanticCommitTypeAll(ci)",
     ":label(deps)",
   ],
-  ignorePaths: ["competitions/**"],
   schedule: ["after 17:00 before 22:00"],
   vulnerabilityAlerts: {
     labels: ["security"],
@@ -14,13 +13,13 @@
   prConcurrentLimit: 5,
   recreateWhen: "never",
   major: {
-    stabilityDays: 4,
+    minimumReleaseAge: "4 days",
   },
   minor: {
-    stabilityDays: 2,
+    minimumReleaseAge: "2 days",
   },
   patch: {
-    stabilityDays: 1,
+    minimumReleaseAge: "1 day",
   },
   packageRules: [
     {
@@ -32,6 +31,16 @@
       groupName: "all patch deps",
       groupSlug: "all-patch",
       matchUpdateTypes: ["patch", "pin", "digest"],
+    },
+    {
+      description: "Disable updates in project directories",
+      matchPaths: ["projects/**"],
+      enabled: false,
+    },
+    {
+      description: "Enable updates in template project directories",
+      matchPaths: ["projects/template**"],
+      enabled: true,
     },
   ],
 }

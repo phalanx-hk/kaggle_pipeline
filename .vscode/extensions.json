@@ -4,5 +4,6 @@
         "matangover.mypy",
         "charliermarsh.ruff",
         "smly.fastkaggle",
+        "saoudrizwan.claude-dev"
     ]
 }

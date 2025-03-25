@@ -24,17 +24,8 @@ $ rm ${DATA_DIR}/competition-name.zip
 
 ### Setup development environment
 
-If you want to develop in a Docker container, run the following command.
-
-```bash
-$ compose up -d
-$ compose exec template bash
-```
-
-If you want to develop on your local machine, run the following command.
-
-```bash
-$ uv sync && source .venv/bin/activate
-```
+Refer to [README.md](../README.md) for setting up the development environment.
 
 ### How to Train/Eval
+
+Write how to train and evaluate the model.
