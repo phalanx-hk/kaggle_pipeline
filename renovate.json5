@@ -39,7 +39,7 @@
     },
     {
       description: "Enable updates in template project directories",
-      matchPaths: ["projects/template**"],
+      matchPaths: ["projects/template/**"],
       enabled: true,
     },
   ],
