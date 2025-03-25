@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
+FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 
 ARG UID
 ARG GID
@@ -9,8 +9,6 @@ ENV DEBIAN_FRONTEND=noninteractive \
     LANG=ja_JP.UTF-8 \
     TZ=Asia/Tokyo \
     apt_get_server=ftp.jaist.ac.jp/pub/Linux \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
     MISE_INSTALL_PATH="/usr/local/bin/mise" \
     PATH="/mise/shims:$PATH" \
     MISE_DATA_DIR="/mise" \
@@ -18,7 +16,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     MISE_CACHE_DIR="/mise/cache"
 
 
-WORKDIR /workspace
+WORKDIR /workspace/projects/${PROJECT}
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
@@ -48,10 +46,11 @@ RUN \
     && useradd -l --uid ${UID} --gid ${GID} -m ${USERNAME} \
     && echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USERNAME}
 
-RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock,readonly=false \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+RUN --mount=type=bind,source=projects/${PROJECT}/uv.lock,target=uv.lock,readonly=false \
+    --mount=type=bind,source=projects/${PROJECT}/pyproject.toml,target=pyproject.toml \
     --mount=type=bind,source=.mise.toml,target=.mise.toml \
-    uv sync --project ${PROJECT}
+    uv sync
+
+ENV PATH="/workspace/projects/${PROJECT}/.venv/bin:$PATH"
 
 USER ${USERNAME}

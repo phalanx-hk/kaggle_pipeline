@@ -1,0 +1,14 @@
+{
+  "name": "Kaggle Pipeline Development",
+  "dockerComposeFile": "../compose.yaml",
+  "service": "kaggle",
+  "workspaceFolder": "/workspace/projects/${localEnv:PROJECT}",
+
+  // 環境変数の設定
+  "remoteEnv": {
+    "PYTHONPATH": "${containerWorkspaceFolder}"
+  },
+
+  // コンテナ内のユーザー
+  "remoteUser": "vscode"
+}

@@ -42,12 +42,22 @@ run = """
 export UID=$(id -u)
 export GID=$(id -g)
 export PROJECT={{arg(name='project', var=true)}}
-docker compose up -d
+docker compose up -d --build
 """
 
 [tasks.compose-down]
 description = "Compose down"
 run = "docker compose down"
+
+[tasks.devcontainer-up]
+description = "Start up devcontainer"
+run = """
+export UID=$(id -u)
+export GID=$(id -g)
+export PROJECT={{arg(name='project', var=true)}}
+devcontainer up
+"""
+
 
 [tasks.hadolint]
 description = "Lint Dockerfile by hadolint"
@@ -57,19 +67,14 @@ run = "hadolint Dockerfile"
 description = "Create a new project from template"
 run = """
 PROJECT_NAME={{arg(name='project_name', var=true)}}
-mkdir -p ${PROJECT_NAME}
-cp -r template/* ${PROJECT_NAME}/ 2>/dev/null || true
-find template -name ".*" -type f -exec cp {} ${PROJECT_NAME}/ \\; 2>/dev/null || true
-sed -i 's/name = "template"/name = "'${PROJECT_NAME}'"/g' ${PROJECT_NAME}/pyproject.toml
 
-# Add the new project to the members in root pyproject.toml
-if grep -q "members = \\[" pyproject.toml; then
-  # Check if the project is already in members
-  if ! grep -q "members = \\[.*\"${PROJECT_NAME}\".*\\]" pyproject.toml; then
-    # Add the project to members
-    sed -i '/members = \\[/ s/\\]/, "'${PROJECT_NAME}'"]/' pyproject.toml
-  fi
-fi
+REPO_ROOT=$(git rev-parse --show-toplevel)
+PROJECT_DIR=${REPO_ROOT}/projects/${PROJECT_NAME}
+TEMPLATE_DIR=${REPO_ROOT}/projects/template
 
+mkdir -p ${PROJECT_DIR}
+cp -r ${TEMPLATE_DIR}/* ${PROJECT_DIR}/ 2>/dev/null || true
+find ${TEMPLATE_DIR} -name ".*" -type f -exec cp {} ${PROJECT_DIR}/ \\; 2>/dev/null || true
+sed -i 's/name = "template"/name = "'${PROJECT_NAME}'"/g' ${PROJECT_DIR}/pyproject.toml
 echo "Project ${PROJECT_NAME} created from template and added to workspace members"
 """

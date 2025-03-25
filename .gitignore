@@ -7,4 +7,5 @@ __pycache__
 .venv
 *.egg-info
 
-# user setting
+# unsloth
+unsloth_compiled_cache
