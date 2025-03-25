@@ -1,5 +1,11 @@
 # template
 
+## How to use this template
+- テンプレートは直接使わず、ルートディレクトリのREADME.mdを参考に、このディレクトリをコピーして利用してください
+- 開発はclineを前提としており、`.clinerules`にclineに守らせたいルールを、`.clineignore`にclineに参照させたくないファイルを記載しています。テンプレートとして仮で記載しているので、開発者の思考に合わせて適宜変更してください。
+  - clineの詳しい使い方は公式ドキュメント（[https://docs.cline.bot/](https://docs.cline.bot/)）を参照
+- コンペティションの詳細、再現実装の手順などは以下のように記述してください
+
 ## What
 
 Write a brief description of the competition here.

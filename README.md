@@ -35,6 +35,7 @@ kaggle_pipeline/
     └── template/             # Template directory for new projects
         ├── .clineignore      # Cline ignore configuration
         ├── .clinerules       # Cline rules configuration
+        ├── data/             # Put the data for the project here
         ├── outputs/          # Put the output of the experiment (e.g., logs, model weights)
         ├── src/              # Put the code that is commonly used in each experiment here (e.g., src/dataset.py, src/model.py)
         |── exp/              # Put the code for each experiment here (e.g., exp001/train.py, exp001/config.yaml)
