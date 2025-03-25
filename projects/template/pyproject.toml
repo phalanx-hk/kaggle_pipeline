@@ -36,7 +36,7 @@ dependencies = [
 package = false
 dev-dependencies = [
   "kaggle>=1.6.6",
-  "notebook==7.3.2",
+  "notebook==7.3.3",
   "seaborn>=0.13.2",
   "streamlit>=1.43.2",
   "kagglehub>=0.3.10",
