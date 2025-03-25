@@ -3,6 +3,7 @@ python = ["3.12"]
 uv = "0.6.9"
 hadolint = "2.12.0"
 pre-commit = "4.2.0"
+actionlint = "1.7.7"
 
 ############################################
 # Tasks for python project
@@ -10,27 +11,31 @@ pre-commit = "4.2.0"
 
 [tasks.format]
 description = "Format python code by ruff"
-run = "uv run ruff format ${PWD}"
+run = "uvx ruff@latest format ${PWD}"
 
-[tasks.ci-fmt]
+[tasks.ci-format]
 description = "Check format by ruff"
-run = "uv run ruff format --check ${PWD}"
+run = "uvx ruff@latest format --check"
 
 [tasks.lint]
 description = "Lint python code by ruff with auto-fix"
-run = "uv run ruff check --fix ${PWD}"
+run = "uvx ruff@latest check --fix ${PWD}"
 
 [tasks.ci-lint]
 description = "Check lint by ruff"
-run = "uv run ruff check ${PWD}"
+run = "uvx ruff@latest check"
 
 [tasks.type-check]
 description = "Check types by mypy"
-run = "uv run mypy ${PWD}"
+run = "uvx mypy@latest ${PWD}"
+
+[tasks.ci-type-check]
+description = "Check types by mypy"
+run = "uvx mypy@latest ."
 
 [tasks.test]
 description = "Run pytest in tests directory"
-run = "uv run pytest"
+run = "uvx pytest"
 
 [tasks.all]
 description = "Run format, lint, type-check, test"

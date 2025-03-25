@@ -4,6 +4,34 @@ target-version = "py312"
 output-format = "grouped"
 
 [lint]
+select = [
+	"AIR",   # Airflow
+	"ASYNC", # flake8-async
+	"BLE",   # flake8-blind-except
+	"C4",    # flake8-comprehensions
+	"C90",   # mccabe
+	"DTZ",   # flake8-datetimez
+	"E",     # pycodestyle
+	"F",     # Pyflakes
+	"FA",    # flake8-future-annotations
+	"FLY",   # flynt
+	"I",     # isort
+	"ICN",   # flake8-import-conventions
+	"INT",   # flake8-gettext
+	"NPY",   # NumPy-specific rules
+	"PL",    # Pylint
+	"PYI",   # flake8-pyi
+	"RSE",   # flake8-raise
+	"RUF",   # Ruff-specific rules
+	"S",     # flake8-bandit
+	"SLOT",  # flake8-slots
+	"T10",   # flake8-debugger
+	"TID",   # flake8-tidy-imports
+	"TRY",   # tryceratops
+	"UP",    # pyupgrade
+	"W",     # pycodestyle
+	"YTT",   # flake8-2020
+]
 ignore = [
 	"D103",
 	"D100", # ignore missing docstring in module
@@ -12,7 +40,7 @@ ignore = [
 	"D105", # ignore missing docstring in magic methods
 	"D107", # ignore missing docstring in __init__ methods
 ]
-extend-select = ["Q", "RUF100", "C90", "UP", "I", "D"]
+
 isort = { combine-as-imports = true }
 mccabe = { max-complexity = 15 }
 
