@@ -4,9 +4,9 @@ uv = "0.5.7"
 hadolint = "2.12.0"
 pre-commit = "4.2.0"
 
-[tasks.setup]
-description = "Setup the project"
-run = "mise i && pre-commit install"
+############################################
+# Tasks for python project
+############################################
 
 [tasks.format]
 description = "Format python code by ruff"
@@ -36,6 +36,14 @@ run = "uv run pytest"
 description = "Run format, lint, type-check, test"
 depends = ["format", "lint", "type-check", "test"]
 
+
+############################################
+# Tasks for docker project
+############################################
+[tasks.hadolint]
+description = "Lint Dockerfile by hadolint"
+run = "hadolint Dockerfile"
+
 [tasks.compose-up]
 description = "Start up all the services in detached mode"
 run = """
@@ -49,19 +57,10 @@ docker compose up -d --build
 description = "Compose down"
 run = "docker compose down"
 
-[tasks.devcontainer-up]
-description = "Start up devcontainer"
-run = """
-export UID=$(id -u)
-export GID=$(id -g)
-export PROJECT={{arg(name='project', var=true)}}
-devcontainer up
-"""
 
-
-[tasks.hadolint]
-description = "Lint Dockerfile by hadolint"
-run = "hadolint Dockerfile"
+############################################
+# Tasks for workspace
+############################################
 
 [tasks.new]
 description = "Create a new project from template"
