@@ -1,5 +1,5 @@
 [tools]
-python = ["3.12"]
+python = ["3.13.2"]
 uv = "0.6.9"
 hadolint = "2.12.0"
 pre-commit = "4.2.0"
