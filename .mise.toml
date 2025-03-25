@@ -75,5 +75,7 @@ mkdir -p ${PROJECT_DIR}
 cp -r ${TEMPLATE_DIR}/* ${PROJECT_DIR}/ 2>/dev/null || true
 find ${TEMPLATE_DIR} -name ".*" -type f -exec cp {} ${PROJECT_DIR}/ \\; 2>/dev/null || true
 sed -i 's/name = "template"/name = "'${PROJECT_NAME}'"/g' ${PROJECT_DIR}/pyproject.toml
+rm projects/${PROJECT_NAME}/**/.gitkeep
+rm projects/${PROJECT_NAME}/.gitkeep
 echo "Project ${PROJECT_NAME} created from template and added to workspace members"
 """

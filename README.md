@@ -71,6 +71,10 @@ The development environment is assumed to be either a local environment or a dev
 ```bash
 PROJECT_NAME=<new_project_name>
 mise run new ${PROJECT_NAME}
+
+# Check whethe the project directory is created
+ls projects
+>>> template/ ${PROJECT_NAME}/
 ```
 
 #### Install dependencies && activate virtualenv
