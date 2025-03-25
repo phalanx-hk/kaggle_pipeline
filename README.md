@@ -5,8 +5,8 @@
 This is a template for a Kaggle pipeline with GPU instance. The repository is structured as a monorepo to facilitate code sharing and reuse across multiple Kaggle projects. The following features are included for accelerating the development:
 
 - 📁 <b>Directory structure</b> : Organized as a monorepo to facilitate code sharing and reuse across multiple Kaggle projects. This structure makes it easier for AI tools like Cline to reference existing code when implementing new features.
-- :package: <b>Container</b> : Docker is used to create a container for the pipeline. To optimize training on NVIDIA GPUs, it is based on the [PyTorch NGC Container]().
-- 📥 <b>Package installer</b> : [uv](https://github.com/astral-sh/uv) is used to speedup package installation. Now uv can't install the package without virtualenv, so I set `VIRTUAL_ENV` environment valirbale to `/usr`.
+- :package: <b>Container</b> : Docker is used to create a container for the pipeline.
+- 📥 <b>Package installer</b> : [uv](https://github.com/astral-sh/uv) is used to speedup package installation.
 - 📥 <b>Setup tool for develop environment</b> : [mise](https://mise.jdx.dev/) is used to manage CLI tools.
 - :chart_with_upwards_trend: <b>ML Experiment manager</b>: [wandb](https://github.com/wandb/wandb) is used, but anything(e.g., MLflow and Comet) would be fine.
 - :white_check_mark: <b>Code lint/format</b> : [ruff](https://github.com/astral-sh/ruff)
