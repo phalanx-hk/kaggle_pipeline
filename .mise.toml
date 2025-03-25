@@ -1,6 +1,6 @@
 [tools]
 python = ["3.12"]
-uv = "0.5.7"
+uv = "0.6.9"
 hadolint = "2.12.0"
 pre-commit = "4.2.0"
 
