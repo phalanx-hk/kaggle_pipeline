@@ -35,3 +35,15 @@ repos:
     rev: v2.12.0
     hooks:
       - id: hadolint-docker
+
+  - repo: local
+    hooks:
+      - id: secretlint
+        name: secretlint
+        language: docker_image
+        entry: secretlint/secretlint:latest secretlint
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
